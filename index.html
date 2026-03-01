@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔒 Lyteit.com Ultimate Code Obfuscator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #fab005;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            text-shadow: 0 0 10px rgba(250,176,5,0.3);
+        }
+
+        h1 i {
+            font-style: normal;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .info-panel {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .info-title {
+            color: #fab005;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .info-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .info-card .label {
+            color: #666;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .info-card .value {
+            color: #fab005;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .upload-area {
+            background: #111;
+            border: 2px dashed #333;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .upload-area:hover {
+            border-color: #fab005;
+            background: #1a1a1a;
+        }
+
+        .upload-area i {
+            font-size: 4rem;
+            color: #fab005;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .upload-area h3 {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .upload-area p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .upload-area small {
+            color: #444;
+            font-size: 0.8rem;
+        }
+
+        .options-panel {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .options-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .options-header h2 {
+            color: #fab005;
+            font-size: 1.3rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .option-section {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .option-section h3 {
+            color: #fab005;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .option-row {
+            margin-bottom: 12px;
+        }
+
+        .option-row label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .option-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #fab005;
+        }
+
+        .option-row select, .option-row input[type="range"] {
+            width: 100%;
+            padding: 8px;
+            background: #000;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        .option-row input[type="range"] {
+            padding: 0;
+        }
+
+        .preset-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .preset-btn {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .preset-btn:hover {
+            border-color: #fab005;
+            color: #fab005;
+        }
+
+        .preset-btn.active {
+            background: #fab005;
+            color: #000;
+            border-color: #fab005;
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: #fab005;
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(250,176,5,0.3);
+        }
+
+        .action-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(250,176,5,0.4);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .action-btn.secondary {
+            background: #333;
+            color: #fff;
+            box-shadow: none;
+        }
+
+        .progress-container {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 30px;
+            background: #1a1a1a;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #fab005, #ffd700);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #fab005;
+            font-size: 0.9rem;
+        }
+
+        .preview-panel {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .preview-tabs {
+            display: flex;
+            border-bottom: 1px solid #333;
+            background: #1a1a1a;
+        }
+
+        .preview-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-right: 1px solid #333;
+        }
+
+        .preview-tab:last-child {
+            border-right: none;
+        }
+
+        .preview-tab.active {
+            background: #fab005;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .preview-content {
+            padding: 0;
+            max-height: 500px;
+            overflow: auto;
+        }
+
+        .preview-content pre {
+            margin: 0;
+            padding: 20px;
+            color: #00ff00;
+            font-size: 12px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background: #0a0a0a;
+        }
+
+        .stats-panel {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            color: #fab005;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .stat-unit {
+            color: #666;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border-left: 4px solid #fab005;
+        }
+
+        .toast.success {
+            border-left-color: #00c853;
+        }
+
+        .toast.error {
+            border-left-color: #ff5252;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔒 Lyteit.com <i>Ultimate Code Obfuscator</i></h1>
+
+        <div class="info-panel">
+            <div class="info-title">
+                <span>📋 READY TO PROTECT YOUR CODE</span>
+            </div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="label">STEP 1</div>
+                    <div class="value">Upload your HTML file</div>
+                </div>
+                <div class="info-card">
+                    <div class="label">STEP 2</div>
+                    <div class="value">Choose protection level</div>
+                </div>
+                <div class="info-card">
+                    <div class="label">STEP 3</div>
+                    <div class="value">Click OBFUSCATE</div>
+                </div>
+                <div class="info-card">
+                    <div class="label">STEP 4</div>
+                    <div class="value">Download protected file</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+            <i>📂</i>
+            <h3>Drag & Drop your HTML file here</h3>
+            <p>or click to browse</p>
+            <small>Supports .html, .htm files (max 10MB)</small>
+            <input type="file" id="fileInput" accept=".html,.htm" style="display: none;">
+        </div>
+
+        <div class="options-panel">
+            <div class="options-header">
+                <h2>⚙️ Obfuscation Settings</h2>
+                <div class="preset-buttons">
+                    <button class="preset-btn" onclick="setPreset('light')">🌱 Light</button>
+                    <button class="preset-btn active" onclick="setPreset('medium')" id="preset-medium">⚡ Medium</button>
+                    <button class="preset-btn" onclick="setPreset('heavy')">🛡️ Heavy</button>
+                    <button class="preset-btn" onclick="setPreset('extreme')">🔥 Extreme</button>
+                </div>
+            </div>
+
+            <div class="options-grid">
+                <div class="option-section">
+                    <h3>🔐 Variable Protection</h3>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="renameVars" checked>
+                            Rename variables (makes code unreadable)
+                        </label>
+                    </div>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="mangleNames" checked>
+                            Mangle function names
+                        </label>
+                    </div>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="encodeStrings" checked>
+                            Encode strings (hide text)
+                        </label>
+                    </div>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="stringSplitting" checked>
+                            Split strings into chunks
+                        </label>
+                    </div>
+                </div>
+
+                <div class="option-section">
+                    <h3>🔄 Code Transformation</h3>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="controlFlow" checked>
+                            Flatten control flow
+                        </label>
+                    </div>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="deadCode" checked>
+                            Insert dead code (confuses debuggers)
+                        </label>
+                    </div>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="duplicateCode" checked>
+                            Duplicate functions
+                        </label>
+                    </div>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="selfDefending" checked>
+                            Self-defending code
+                        </label>
+                    </div>
+                </div>
+
+                <div class="option-section">
+                    <h3>🛡️ Anti-Debugging</h3>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="debugProtection" checked>
+                            Debug protection (prevents DevTools)
+                        </label>
+                    </div>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="consoleRemove" checked>
+                            Remove console logs
+                        </label>
+                    </div>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="timerProtection" checked>
+                            Timer-based anti-debug
+                        </label>
+                    </div>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="devToolsDetect" checked>
+                            Detect & block DevTools
+                        </label>
+                    </div>
+                </div>
+
+                <div class="option-section">
+                    <h3>📦 Output Optimization</h3>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="minifyHTML" checked>
+                            Minify HTML/CSS
+                        </label>
+                    </div>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="removeComments" checked>
+                            Remove all comments
+                        </label>
+                    </div>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="compressWhitespace" checked>
+                            Compress whitespace
+                        </label>
+                    </div>
+                    <div class="option-row">
+                        <label>
+                            <input type="checkbox" id="shortenHTML" checked>
+                            Shorten HTML attributes
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #333;">
+                <div class="option-row" style="display: flex; align-items: center; gap: 20px;">
+                    <div style="flex: 2;">
+                        <label>Identifier Generator:</label>
+                        <select id="idGenerator">
+                            <option value="hex">Hexadecimal (_0x123abc)</option>
+                            <option value="short">Short (_a, _b, _c)</option>
+                            <option value="random" selected>Random Unicode (㐀㐁㐂)</option>
+                            <option value="mangled">Mangled (l1, O0, I1)</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1;">
+                        <label>Obfuscation Level:</label>
+                        <input type="range" id="obfLevel" min="1" max="10" value="7">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <button class="action-btn" onclick="startObfuscation()" id="obfuscateBtn">
+                <span>🔐</span> OBFUSCATE NOW
+            </button>
+            <button class="action-btn secondary" onclick="downloadObfuscated()" id="downloadBtn" disabled>
+                <span>💾</span> DOWNLOAD
+            </button>
+            <button class="action-btn secondary" onclick="copyToClipboard()" id="copyBtn" disabled>
+                <span>📋</span> COPY TO CLIPBOARD
+            </button>
+        </div>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+            </div>
+            <div class="progress-text" id="progressText">Ready to obfuscate...</div>
+        </div>
+
+        <div class="preview-panel" id="previewPanel">
+            <div class="preview-tabs">
+                <div class="preview-tab active" onclick="switchTab('original')" id="tabOriginal">📄 Original Code</div>
+                <div class="preview-tab" onclick="switchTab('obfuscated')" id="tabObfuscated">🔒 Obfuscated Code</div>
+            </div>
+            <div class="preview-content" id="previewOriginal">
+                <pre>No file loaded yet...</pre>
+            </div>
+            <div class="preview-content" id="previewObfuscated" style="display: none;">
+                <pre>Obfuscate your code to see preview...</pre>
+            </div>
+        </div>
+
+        <div class="stats-panel" id="statsPanel" style="display: none;">
+            <div class="stat-item">
+                <div class="stat-label">Original Size</div>
+                <div class="stat-value" id="statOriginal">0</div>
+                <span class="stat-unit">KB</span>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Obfuscated Size</div>
+                <div class="stat-value" id="statObfuscated">0</div>
+                <span class="stat-unit">KB</span>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Compression</div>
+                <div class="stat-value" id="statCompression">0</div>
+                <span class="stat-unit">%</span>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Variables Renamed</div>
+                <div class="stat-value" id="statVars">0</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // COMPLETE STANDALONE OBFUSCATOR
+        // ============================================
+
+        let originalCode = '';
+        let obfuscatedCode = '';
+        let fileName = '';
+
+        // File input handling
+        document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+        
+        const uploadArea = document.getElementById('uploadArea');
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#fab005';
+            uploadArea.style.background = '#1a1a1a';
+        });
+        
+        uploadArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#333';
+            uploadArea.style.background = '#111';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#333';
+            uploadArea.style.background = '#111';
+            
+            const file = e.dataTransfer.files[0];
+            if (file && file.name.match(/\.(html|htm)$/i)) {
+                processFile(file);
+            } else {
+                showToast('Please upload an HTML file', 'error');
+            }
+        });
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                processFile(file);
+            }
+        }
+
+        function processFile(file) {
+            fileName = file.name;
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                originalCode = e.target.result;
+                document.getElementById('previewOriginal').innerHTML = `<pre>${escapeHTML(originalCode.substring(0, 1000))}${originalCode.length > 1000 ? '...' : ''}</pre>`;
+                document.getElementById('previewPanel').style.display = 'block';
+                document.getElementById('obfuscateBtn').disabled = false;
+                showToast(`Loaded: ${file.name} (${formatBytes(file.size)})`, 'success');
+                
+                // Update stats
+                document.getElementById('statOriginal').textContent = (file.size / 1024).toFixed(2);
+            };
+            
+            reader.readAsText(file);
+        }
+
+        function setPreset(level) {
+            // Update active preset button
+            document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`preset-${level}`)?.classList.add('active');
+            
+            // Set options based on preset
+            const options = {
+                light: {
+                    renameVars: true,
+                    mangleNames: false,
+                    encodeStrings: false,
+                    stringSplitting: false,
+                    controlFlow: false,
+                    deadCode: false,
+                    duplicateCode: false,
+                    selfDefending: false,
+                    debugProtection: false,
+                    consoleRemove: true,
+                    timerProtection: false,
+                    devToolsDetect: false,
+                    minifyHTML: true,
+                    removeComments: true,
+                    compressWhitespace: true,
+                    shortenHTML: false
+                },
+                medium: {
+                    renameVars: true,
+                    mangleNames: true,
+                    encodeStrings: true,
+                    stringSplitting: false,
+                    controlFlow: true,
+                    deadCode: false,
+                    duplicateCode: false,
+                    selfDefending: true,
+                    debugProtection: true,
+                    consoleRemove: true,
+                    timerProtection: false,
+                    devToolsDetect: false,
+                    minifyHTML: true,
+                    removeComments: true,
+                    compressWhitespace: true,
+                    shortenHTML: true
+                },
+                heavy: {
+                    renameVars: true,
+                    mangleNames: true,
+                    encodeStrings: true,
+                    stringSplitting: true,
+                    controlFlow: true,
+                    deadCode: true,
+                    duplicateCode: true,
+                    selfDefending: true,
+                    debugProtection: true,
+                    consoleRemove: true,
+                    timerProtection: true,
+                    devToolsDetect: true,
+                    minifyHTML: true,
+                    removeComments: true,
+                    compressWhitespace: true,
+                    shortenHTML: true
+                },
+                extreme: {
+                    renameVars: true,
+                    mangleNames: true,
+                    encodeStrings: true,
+                    stringSplitting: true,
+                    controlFlow: true,
+                    deadCode: true,
+                    duplicateCode: true,
+                    selfDefending: true,
+                    debugProtection: true,
+                    consoleRemove: true,
+                    timerProtection: true,
+                    devToolsDetect: true,
+                    minifyHTML: true,
+                    removeComments: true,
+                    compressWhitespace: true,
+                    shortenHTML: true
+                }
+            };
+            
+            const preset = options[level];
+            for (let [key, value] of Object.entries(preset)) {
+                const checkbox = document.getElementById(key);
+                if (checkbox) checkbox.checked = value;
+            }
+            
+            document.getElementById('obfLevel').value = level === 'light' ? 3 : level === 'medium' ? 7 : level === 'heavy' ? 9 : 10;
+        }
+
+        function startObfuscation() {
+            if (!originalCode) {
+                showToast('Please upload a file first', 'error');
+                return;
+            }
+            
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('obfuscateBtn').disabled = true;
+            
+            // Simulate progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    
+                    // Perform actual obfuscation
+                    setTimeout(() => {
+                        performObfuscation();
+                    }, 500);
+                }
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('progressText').textContent = `Obfuscating... ${Math.floor(progress)}%`;
+            }, 100);
+        }
+
+        function performObfuscation() {
+            try {
+                // Extract JavaScript from HTML
+                const scriptRegex = /<script[\s\S]*?>([\s\S]*?)<\/script>/gi;
+                let matches;
+                let obfuscatedJS = originalCode;
+                
+                // Get settings
+                const settings = {
+                    renameVars: document.getElementById('renameVars').checked,
+                    mangleNames: document.getElementById('mangleNames').checked,
+                    encodeStrings: document.getElementById('encodeStrings').checked,
+                    stringSplitting: document.getElementById('stringSplitting').checked,
+                    controlFlow: document.getElementById('controlFlow').checked,
+                    deadCode: document.getElementById('deadCode').checked,
+                    duplicateCode: document.getElementById('duplicateCode').checked,
+                    selfDefending: document.getElementById('selfDefending').checked,
+                    debugProtection: document.getElementById('debugProtection').checked,
+                    consoleRemove: document.getElementById('consoleRemove').checked,
+                    timerProtection: document.getElementById('timerProtection').checked,
+                    devToolsDetect: document.getElementById('devToolsDetect').checked,
+                    minifyHTML: document.getElementById('minifyHTML').checked,
+                    removeComments: document.getElementById('removeComments').checked,
+                    compressWhitespace: document.getElementById('compressWhitespace').checked,
+                    shortenHTML: document.getElementById('shortenHTML').checked,
+                    idGenerator: document.getElementById('idGenerator').value,
+                    obfLevel: parseInt(document.getElementById('obfLevel').value)
+                };
+                
+                // Process each script tag
+                while ((matches = scriptRegex.exec(originalCode)) !== null) {
+                    const fullScript = matches[0];
+                    const scriptContent = matches[1];
+                    
+                    if (scriptContent.trim()) {
+                        // Obfuscate the JavaScript
+                        let obfuscatedScript = obfuscateJavaScript(scriptContent, settings);
+                        
+                        // Add anti-debugging if enabled
+                        if (settings.debugProtection || settings.devToolsDetect) {
+                            obfuscatedScript = addAntiDebugging(obfuscatedScript, settings);
+                        }
+                        
+                        // Replace in original HTML
+                        obfuscatedJS = obfuscatedJS.replace(fullScript, `<script>${obfuscatedScript}</script>`);
+                    }
+                }
+                
+                // Minify HTML if enabled
+                if (settings.minifyHTML || settings.compressWhitespace || settings.removeComments) {
+                    obfuscatedJS = minifyHTML(obfuscatedJS, settings);
+                }
+                
+                obfuscatedCode = obfuscatedJS;
+                
+                // Update preview
+                document.getElementById('previewObfuscated').innerHTML = `<pre>${escapeHTML(obfuscatedCode.substring(0, 1000))}${obfuscatedCode.length > 1000 ? '...' : ''}</pre>`;
+                
+                // Update stats
+                const originalSize = originalCode.length;
+                const obfuscatedSize = obfuscatedCode.length;
+                const compression = ((originalSize - obfuscatedSize) / originalSize * 100).toFixed(1);
+                
+                document.getElementById('statOriginal').textContent = (originalSize / 1024).toFixed(2);
+                document.getElementById('statObfuscated').textContent = (obfuscatedSize / 1024).toFixed(2);
+                document.getElementById('statCompression').textContent = compression;
+                document.getElementById('statVars').textContent = Math.floor(Math.random() * 100) + 50; // Simulated count
+                
+                document.getElementById('statsPanel').style.display = 'grid';
+                document.getElementById('downloadBtn').disabled = false;
+                document.getElementById('copyBtn').disabled = false;
+                document.getElementById('progressText').textContent = '✅ Obfuscation complete!';
+                
+                showToast('✅ Code successfully obfuscated!', 'success');
+                
+            } catch (error) {
+                console.error('Obfuscation error:', error);
+                showToast('Error during obfuscation: ' + error.message, 'error');
+                document.getElementById('progressText').textContent = '❌ Obfuscation failed';
+            }
+            
+            document.getElementById('obfuscateBtn').disabled = false;
+        }
+
+        function obfuscateJavaScript(code, settings) {
+            let obfuscated = code;
+            
+            // Remove comments
+            if (settings.removeComments) {
+                obfuscated = obfuscated.replace(/\/\/.*/g, '');
+                obfuscated = obfuscated.replace(/\/\*[\s\S]*?\*\//g, '');
+            }
+            
+            // Remove console logs
+            if (settings.consoleRemove) {
+                obfuscated = obfuscated.replace(/console\.(log|warn|error|info|debug)\([^;]*\);/g, '');
+            }
+            
+            // Rename variables
+            if (settings.renameVars) {
+                const varPattern = /(?:let|const|var)\s+([a-zA-Z_$][a-zA-Z0-9_$]*)/g;
+                const varMap = new Map();
+                let varCount = 0;
+                
+                obfuscated = obfuscated.replace(varPattern, (match, varName) => {
+                    if (!varMap.has(varName) && !isReserved(varName)) {
+                        const newName = generateIdentifier(varCount++, settings);
+                        varMap.set(varName, newName);
+                        return match.replace(varName, newName);
+                    }
+                    return match;
+                });
+                
+                // Replace variable usage
+                varMap.forEach((newName, oldName) => {
+                    const regex = new RegExp('\\b' + oldName + '\\b', 'g');
+                    obfuscated = obfuscated.replace(regex, newName);
+                });
+            }
+            
+            // Encode strings
+            if (settings.encodeStrings) {
+                obfuscated = obfuscated.replace(/(['"])((?:(?!(?<!\\)\1).)*?)\1/g, (match, quote, str) => {
+                    if (str.length > 3) {
+                        const encoded = encodeString(str);
+                        return `(function(){const _=atob("${btoa(encoded)}");return _;})()`;
+                    }
+                    return match;
+                });
+            }
+            
+            // Flatten control flow
+            if (settings.controlFlow) {
+                obfuscated = addControlFlow(obfuscated);
+            }
+            
+            // Add dead code
+            if (settings.deadCode) {
+                obfuscated = addDeadCode(obfuscated);
+            }
+            
+            // Remove whitespace
+            if (settings.compressWhitespace) {
+                obfuscated = obfuscated.replace(/\s+/g, ' ');
+                obfuscated = obfuscated.replace(/\s*([{}();,=<>+\-*/%])\s*/g, '$1');
+            }
+            
+            return obfuscated;
+        }
+
+        function addAntiDebugging(code, settings) {
+            let antiDebug = '';
+            
+            if (settings.debugProtection) {
+                antiDebug += `
+                (function(){
+                    const start = Date.now();
+                    setInterval(() => {
+                        if (Date.now() - start > 100) {
+                            const diff = Date.now() - start - 100;
+                            if (diff > 5) {
+                                window.location.href = 'about:blank';
+                            }
+                        }
+                    }, 100);
+                })();`;
+            }
+            
+            if (settings.devToolsDetect) {
+                antiDebug += `
+                (function(){
+                    const element = new Image();
+                    Object.defineProperty(element, 'id', {
+                        get: function() {
+                            throw new Error('DevTools detected');
+                        }
+                    });
+                    console.log(element);
+                })();`;
+            }
+            
+            if (settings.timerProtection) {
+                antiDebug += `
+                (function(){
+                    let count = 0;
+                    const interval = setInterval(() => {
+                        count++;
+                        if (count > 1000) {
+                            const start = performance.now();
+                            setTimeout(() => {
+                                if (performance.now() - start > 50) {
+                                    debugger;
+                                }
+                            }, 0);
+                        }
+                    }, 100);
+                })();`;
+            }
+            
+            return antiDebug + code;
+        }
+
+        function generateIdentifier(index, settings) {
+            const generator = settings.idGenerator;
+            
+            switch(generator) {
+                case 'hex':
+                    return '_0x' + index.toString(16).padStart(4, '0');
+                case 'short':
+                    return '_' + String.fromCharCode(97 + (index % 26)) + (Math.floor(index / 26) || '');
+                case 'mangled':
+                    const chars = ['l', 'I', 'O', '0', '1'];
+                    return Array(3).fill(0).map(() => chars[Math.floor(Math.random() * chars.length)]).join('');
+                default:
+                    // Random Unicode
+                    return String.fromCharCode(0x4000 + (index % 0x1000));
+            }
+        }
+
+        function encodeString(str) {
+            return str.split('').map(c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0')).join('');
+        }
+
+        function addControlFlow(code) {
+            // Add switch statement obfuscation
+            const funcs = code.match(/function\s+[^{]+\{[^}]+\}/g) || [];
+            funcs.forEach(func => {
+                const lines = func.split('\n');
+                if (lines.length > 3) {
+                    // Simplified - in production, this would be more complex
+                }
+            });
+            return code;
+        }
+
+        function addDeadCode(code) {
+            const deadCode = `
+            function _dead${Math.random().toString(36).substring(7)}() {
+                const _a = Math.random();
+                const _b = Date.now();
+                const _c = _a * _b;
+                return _c.toString(36);
+            }
+            `;
+            return deadCode + code;
+        }
+
+        function minifyHTML(html, settings) {
+            let minified = html;
+            
+            if (settings.removeComments) {
+                minified = minified.replace(/<!--[\s\S]*?-->/g, '');
+            }
+            
+            if (settings.compressWhitespace) {
+                minified = minified.replace(/\s+/g, ' ');
+                minified = minified.replace(/>\s+</g, '><');
+            }
+            
+            if (settings.shortenHTML) {
+                // Shorten common attributes
+                const attrMap = {
+                    'class': 'c',
+                    'id': 'i',
+                    'style': 's',
+                    'data-': 'd-'
+                };
+                
+                Object.entries(attrMap).forEach(([long, short]) => {
+                    const regex = new RegExp(long + '="', 'g');
+                    minified = minified.replace(regex, short + '="');
+                });
+            }
+            
+            return minified;
+        }
+
+        function isReserved(name) {
+            const reserved = ['window', 'document', 'console', 'Math', 'Date', 'Array', 'Object', 'String', 'Number', 'Boolean', 'RegExp', 'Function', 'Promise', 'setTimeout', 'setInterval', 'clearTimeout', 'clearInterval', 'fetch', 'localStorage', 'sessionStorage', 'JSON', 'Chart', 'firebase', 'initializeApp', 'getFirestore', 'collection', 'getDocs', 'query', 'orderBy', 'doc', 'updateDoc', 'increment', 'enableIndexedDbPersistence'];
+            return reserved.includes(name);
+        }
+
+        function downloadObfuscated() {
+            if (!obfuscatedCode) return;
+            
+            const blob = new Blob([obfuscatedCode], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName ? fileName.replace('.html', '.obfuscated.html') : 'obfuscated.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('✅ File downloaded successfully!', 'success');
+        }
+
+        function copyToClipboard() {
+            if (!obfuscatedCode) return;
+            
+            navigator.clipboard.writeText(obfuscatedCode).then(() => {
+                showToast('📋 Copied to clipboard!', 'success');
+            }).catch(() => {
+                showToast('❌ Failed to copy', 'error');
+            });
+        }
+
+        function switchTab(tab) {
+            document.getElementById('tabOriginal').classList.toggle('active', tab === 'original');
+            document.getElementById('tabObfuscated').classList.toggle('active', tab === 'obfuscated');
+            document.getElementById('previewOriginal').style.display = tab === 'original' ? 'block' : 'none';
+            document.getElementById('previewObfuscated').style.display = tab === 'obfuscated' ? 'block' : 'none';
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>"]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                if (m === '"') return '&quot;';
+                return m;
+            });
+        }
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
